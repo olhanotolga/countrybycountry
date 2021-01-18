@@ -1,13 +1,65 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
+import CountryCard from './CountryCard';
 
 const MainContainer = () => {
+	const URI = 'https://restcountries.eu/rest/v2/';
+	
+	// create a state for the fetched countries data
+	const [countriesInfo, setCountriesInfo] = useState([]);
+	
+	// a state for the region
+	const [region, setRegion] = useState('all');
+	// https://restcountries.eu/rest/v2/region/{region}
+	// Search by region: Africa, Americas, Asia, Europe, Oceania
+	const [searchURI, setSearchURI] = useState(URI + region);
+	
+	const fetchData = async (searchURI) => {
+		try {
+			const response = await fetch(searchURI);
+			const data = await response.json();
+			setCountriesInfo(data);
+		} catch (error) {
+			console.error(error.message);
+		}
+	};
+	
+	const filterCountries = (val) => {
+		const endpoint = val === '' ? 'all' : URI + val;
+		setRegion(endpoint);
+		setSearchURI(endpoint);
+		
+	}
+	
+	useEffect(() => {
+		fetchData(searchURI);
+	}, [searchURI]);
+
+
+	console.log(countriesInfo);
+
 	return (
 		<main>
-			<Searchbox />
-			<FilterDropdown />
-			
+			<section className="search-bar">
+				<Searchbox />
+				<FilterDropdown onFilter={filterCountries} />
+			</section>
+
+			<section className="cards-container">
+				{countriesInfo.map(country => {
+					return (
+						<CountryCard
+							key={country.numericCode}
+							name={country.name}
+							population={country.population}
+							region={country.region}
+							capital={country.capital}
+							flag={country.flag} />
+					)
+				})}
+				
+			</section>
 		</main>
 	)
 }

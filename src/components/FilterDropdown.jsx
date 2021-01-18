@@ -1,15 +1,16 @@
 import React from 'react';
 
-const FilterDropdown = () => {
+const FilterDropdown = ({onFilter}) => {
 	return (
 		<div>
-			<select name="" id="">
+			<select onChange={(e) => onFilter(e.target.value)}>
 				<option value="">Filter by Region</option>
-				<option value="Africa">Africa</option>
-				<option value="America">America</option>
-				<option value="Asia">Asia</option>
-				<option value="Europe">Europe</option>
-				<option value="Oceania">Oceania</option>
+				<option value="region/africa">Africa</option>
+				<option value="region/americas">America</option>
+				<option value="region/asia">Asia</option>
+				<option value="region/europe">Europe</option>
+				<option value="region/oceania">Oceania</option>
+				<option value="all">All</option>
 			</select>
 		</div>
 	)
