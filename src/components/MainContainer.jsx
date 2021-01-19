@@ -3,7 +3,7 @@ import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
 import CountryCard from './CountryCard';
 
-const MainContainer = () => {
+const MainContainer = (props) => {
 	const URI = 'https://restcountries.eu/rest/v2/';
 	
 	// create a state for the fetched countries data
@@ -26,6 +26,7 @@ const MainContainer = () => {
 	};
 	
 	const filterCountries = (val) => {
+		// console.log(val);
 		const endpoint = val === '' ? 'all' : URI + val;
 		setRegion(endpoint);
 		setSearchURI(endpoint);
@@ -34,15 +35,18 @@ const MainContainer = () => {
 	
 	useEffect(() => {
 		fetchData(searchURI);
+		return () => {
+			setCountriesInfo([]);
+		}
 	}, [searchURI]);
 
 
-	console.log(countriesInfo);
+	// console.log(countriesInfo);
 
 	return (
 		<main>
 			<section className="search-bar">
-				<Searchbox />
+				<Searchbox handleCountrySearch={props.handleCountrySearch} />
 				<FilterDropdown onFilter={filterCountries} />
 			</section>
 
@@ -55,7 +59,8 @@ const MainContainer = () => {
 							population={country.population}
 							region={country.region}
 							capital={country.capital}
-							flag={country.flag} />
+							flag={country.flag}
+							handleCardExpand={props.handleCardExpand}/>
 					)
 				})}
 				

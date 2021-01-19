@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { HiOutlineSearch } from 'react-icons/hi';
 
-const Searchbox = () => {
+const Searchbox = ({handleCountrySearch}) => {
+	const [countryInput, setCountryInput] = useState('');
+
 	return (
-		<div>
-			<label htmlFor="searchBox">🔍</label>
-			<input type="text" id="searchBox" placeholder="Search for a country..."/>
+		<div className="search-field">
+			<label htmlFor="searchBox">
+				<HiOutlineSearch />
+			</label>
+			<input
+				type="text"
+				id="searchBox"
+				value={countryInput}
+				onChange={(e) => setCountryInput(e.target.value)}
+				onKeyUp={(e) => handleCountrySearch(e, countryInput)}
+				placeholder="Search for a country..."/>
 		</div>
 	)
 }

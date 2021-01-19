@@ -1,12 +1,18 @@
 import React from 'react';
+import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
 
-const Header = () => {
+const Header = ({dark, handleModeChange}) => {
+	console.log(dark);
 	return (
-		<header>
+		<header className="top-header">
 			<h1>CountryByCountry</h1>
-			<div>
-				<input type="checkbox" id="themeSwitch"/>
-				<label htmlFor="themeSwitch">Dark Mode</label>
+			<div className="mode-switch">
+
+				<input onChange={(e) => handleModeChange(e)} checked={dark} type="checkbox" id="themeSwitch" className="visually-hidden"/>
+				<label htmlFor="themeSwitch">
+					{dark ? <HiOutlineSun /> : <HiOutlineMoon />}
+					{dark ? '\u00A0\u00A0Light Mode' : '\u00A0\u00A0Dark Mode'}
+				</label>
 			</div>
 		</header>
 	)
