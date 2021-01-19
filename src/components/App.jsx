@@ -1,48 +1,48 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './Header';
 import MainContainer from './MainContainer';
 import CountryPage from './CountryPage';
 import '../assets/css/App.css';
+import {lightThemeColors, darkThemeColors} from '../themes';
 
 const App = () => {
-	// a state for the mode
+	// current mode/theme
 	const [dark, setDark] = useState(false);
 
-	// country name searched from the page with all countries
+	// search box input value
 	const [countryName, setCountryName] = useState('');
 	
-	const handleModeChange = (e) => {
-		// console.log(e.target.checked);
-		// console.log(dark);
-		setDark(!dark);
+	// light/dark theme toggler
+	const handleModeChange = () => setDark(!dark);
+
+	// enables search by pressing Enter key
+	const handleCountrySearch = (e, country) => e.code === 'Enter' && setCountryName(country);
+
+	// cleans up the country value when going back to the countries' list
+	const handleReset = () => setCountryName('');
+
+	// enables rendering country page component upon clicking on the country card
+	const handleCardExpand = (country) => setCountryName(country);
+
+	const setThemeColors = () => {
+		const {background, text} = dark ? darkThemeColors : lightThemeColors;
+		document.body.style.backgroundColor = background;
+		document.getElementById('root').style.color = text;
 	}
 
-	const handleCountrySearch = (e, country) => {
-		// console.log(e.code);
-		// console.log(country);
-		if (e.code === 'Enter') {
-			setCountryName(country);
-		}
-	}
-
-	const handleReset = () => {
-		setCountryName('');
-	}
-
-	const handleCardExpand = (country) => {
-		console.log(country);
-		setCountryName(country);
-	}
+	useEffect(() => {
+		setThemeColors();
+	})
 
 	return (
 		<>
-			<Header handleModeChange={handleModeChange} dark={dark}/>
+			<Header handleModeChange={handleModeChange} dark={dark} theme={dark ? darkThemeColors : lightThemeColors}/>
 			{
-				countryName === '' && <MainContainer handleCountrySearch={handleCountrySearch} handleCardExpand={handleCardExpand}/>
+				countryName === '' && <MainContainer handleCountrySearch={handleCountrySearch} handleCardExpand={handleCardExpand} theme={dark ? darkThemeColors : lightThemeColors} dark={dark}/>
 			}
 			
 			{
-				countryName !== '' && <CountryPage countryName={countryName} handleReset={handleReset}/>
+				countryName !== '' && <CountryPage countryName={countryName} handleReset={handleReset} theme={dark ? darkThemeColors : lightThemeColors}/>
 			}
 		</>
 	);

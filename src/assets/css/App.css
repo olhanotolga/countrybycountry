@@ -10,6 +10,7 @@
 	--input--light-mode: hsl(0, 0%, 52%);
 	--border-radius: 0.3rem;
 	--box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05), 0px 0px 10px 0px rgba(0, 0, 0, 0.06);
+	font-size: 14px;
 }
 * {
 	box-sizing: border-box;
@@ -19,37 +20,43 @@ ul {
 	padding: 0;
 }
 
+button {
+	border: none;
+	border-radius: var(--border-radius);
+	box-shadow: var(--box-shadow);
+	padding: 0.5rem 1rem;
+	cursor: pointer;
+	font-size: inherit;
+}
+svg {
+	height: 1.2rem;
+	width: 1.2rem;
+}
+
 body {
 	margin: 0;
-	background-color: var(--background--light-mode);
 	font-family: "Nunito Sans", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	font-size: 14px;
 }
-
 #root {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	/* align-items: center; */
-	/* justify-content: center; */
-	color: var(--text--light-mode);
-	/* text-align: center; */
 }
 
 
 /* HEADER */
 
 .top-header {
-	padding: 1rem 5vw;
+	padding: 1.5rem 5vw;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	box-shadow: var(--box-shadow); 
 }
 h1 {
-	font-size: 20px;
+	font-size: 1.2rem;
 }
 
 .mode-switch {
@@ -60,15 +67,12 @@ h1 {
 	display: flex;
 	align-items: center;
 	cursor: pointer;
+	font-size: 90%;
+	font-weight: 600;
 }
 .mode-switch label:active {
 	border: 2px solid var(--input--light-mode);
 	border-radius: var(--border-radius);
-}
-.mode-switch label svg {
-	height: 1rem;
-	width: 1rem;
-	align-self: baseline;
 }
 
 
@@ -89,8 +93,7 @@ main {
 }
 .search-field {
 	width: clamp(40%, 400px, 90%);
-	background-color: var(--elements--light-mode);
-	padding: 0.5rem 1rem;
+	padding: 1rem 2rem;
 	display: flex;
 	align-items: flex-end;
 	box-shadow: var(--box-shadow);
@@ -102,16 +105,14 @@ main {
 	align-items: center;
 }
 .search-field svg {
-	width: 1rem;
-	height: 1rem;
 	margin-right: 0.5rem;
 	stroke: var(--input--light-mode);
 }
-.search-field input {
+.search-input {
 	width: 100%;
 	border: none;
 	outline: none;
-	color: var(--input--light-mode);
+	box-shadow: none;
 }
 .search-field:focus-within {
 	border: 2px solid var(--input--light-mode);
@@ -122,13 +123,13 @@ main {
 
 .filter-field {
 	position: relative;
-	width: clamp(15%, 200px, 60%);
+	width: clamp(15%, 250px, 70%);
 	margin-top: 2rem;
-	padding: 0.5rem 1rem;
-	background-color: var(--elements--light-mode);
+	padding: 1rem 2rem;
 	box-shadow: var(--box-shadow);
 	border-radius: var(--border-radius);
 	border: 2px solid transparent;
+	font-weight: 600;
 }
 .filter-heading {
 	display: flex;
@@ -137,27 +138,20 @@ main {
 	margin: 0;
 	cursor: pointer;
 }
-.filter-heading svg {
-	width: 1rem;
-	height: 1rem;
-}
+
 .filter-dropdown {
 	position: absolute;
 	width: 100%;
-	top: 1.5rem;
+	top: 2.8rem;
 	left: 0;
-	padding: 0.5rem 0;
-	background-color: var(--elements--light-mode);
+	padding: 1rem 0;
 	box-shadow: var(--box-shadow);
 	border-radius: var(--border-radius);
 	display: flex;
 	flex-direction: column;
 }
 .filter-dropdown li {
-	padding: 0.3rem 1rem;
-}
-.filter-dropdown li:hover {
-	background-color: var(--background--light-mode);
+	padding: 0.5rem 2rem;
 }
 
 
@@ -172,6 +166,7 @@ main {
 	gap: 4rem;
 }
 .card {
+	width: clamp(25%, 250px, 100% - 2rem);
 	padding: 0;
 	display: flex;
 	flex-direction: column;
@@ -189,8 +184,14 @@ main {
 .country-info {
 	padding: 1rem 2rem;
 }
+.country-info h2 {
+	font-size: 1.4rem;
+}
 .country-info p {
 	margin: 0.5rem 0;
+}
+.country-info strong {
+	font-weight: 600;
 }
 
 
@@ -206,17 +207,9 @@ main {
 }
 .back-btn {
 	width: 6rem;
-	background-color: var(--elements--light-mode);
-	border: none;
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-	padding: 0.5rem 1rem;
 	display: flex;
 	justify-content: space-between;
-}
-.back-btn svg {
-	width: 1rem;
-	height: 1rem;
+	align-items: center;
 }
 
 .country-image img {
@@ -236,16 +229,9 @@ main {
 .info-chunk:last-of-type h3 {
 	grid-column: 1 / -1;
 }
-.border-country {
-	background-color: var(--elements--light-mode);
-	border: none;
-	border-radius: var(--border-radius);
-	box-shadow: var(--box-shadow);
-	padding: 0.5rem 1rem;
-}
 
 
-/* FUNCTIONAL CLASSES */
+/* AUXILLARY CLASSES */
 
 .visually-hidden {
 	position: absolute;
@@ -264,10 +250,17 @@ main {
 	border: 2px solid var(--input--light-mode);
 }
 
+.placeholder-dark::placeholder {
+	color: var(--text--dark-mode);
+}
+
 
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 600px) {
+	:root {
+		font-size: 16px;
+	}
 	.search-bar {
 		padding: 2rem 0;
 		flex-direction: row;

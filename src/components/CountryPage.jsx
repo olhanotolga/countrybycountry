@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {HiOutlineArrowNarrowLeft} from 'react-icons/hi';
 
-const CountryPage = ({countryName, handleReset}) => {
+const CountryPage = ({countryName, handleReset, theme}) => {
 	const URI = 'https://restcountries.eu/rest/v2/name/';
 
 	const [searchURI, setSearchURI] = useState(URI + countryName);
@@ -46,7 +46,7 @@ const CountryPage = ({countryName, handleReset}) => {
 	return (
 		<article className="country-page">
 			<header className="country-header">
-				<button className="back-btn" onClick={() => handleReset()}>
+				<button className="back-btn" onClick={() => handleReset()} style={{backgroundColor: theme.elements, color: theme.text}}>
 				<HiOutlineArrowNarrowLeft/> Back
 				</button>
 			</header>
@@ -81,7 +81,7 @@ const CountryPage = ({countryName, handleReset}) => {
 				
 				<div className="info-chunk">
 					<h3>Border Countries:</h3>
-					{countryData.borders && countryData.borders.map((border, idx) => <button className="border-country" key={idx}>{border}</button>)}
+					{countryData.borders && countryData.borders.map((border, idx) => <button className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>{border}</button>)}
 				</div>
 			</section>
 		</article>

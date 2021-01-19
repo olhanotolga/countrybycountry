@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FilterListItem = (props) => {
-	const {onFilter, handleSelected, value, role, id, selected, text} = props;
+	const {onFilter, handleSelected, value, role, id, selected, text, theme} = props;
 
 	return (
 		<li
@@ -9,6 +9,9 @@ const FilterListItem = (props) => {
 				onFilter(e.target.attributes.value.nodeValue);
 				handleSelected(e.target.attributes.value.nodeValue)
 			}}
+			style={{backgroundColor: theme.elements}}
+			onMouseEnter={(e) => e.target.style.backgroundColor = theme.background}
+			onMouseLeave={(e) => e.target.style.backgroundColor = theme.elements}
 			value={value} 
 			role={role}
 			id={id}

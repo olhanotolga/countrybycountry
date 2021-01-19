@@ -46,8 +46,8 @@ const MainContainer = (props) => {
 	return (
 		<main>
 			<section className="search-bar">
-				<Searchbox handleCountrySearch={props.handleCountrySearch} />
-				<FilterDropdown onFilter={filterCountries} />
+				<Searchbox handleCountrySearch={props.handleCountrySearch} theme={props.theme} dark={props.dark}/>
+				<FilterDropdown onFilter={filterCountries} theme={props.theme}/>
 			</section>
 
 			<section className="cards-container">
@@ -60,7 +60,8 @@ const MainContainer = (props) => {
 							region={country.region}
 							capital={country.capital}
 							flag={country.flag}
-							handleCardExpand={props.handleCardExpand}/>
+							handleCardExpand={props.handleCardExpand}
+							theme={props.theme}/>
 					)
 				})}
 				

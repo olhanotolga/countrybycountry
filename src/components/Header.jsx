@@ -1,10 +1,10 @@
 import React from 'react';
 import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi';
 
-const Header = ({dark, handleModeChange}) => {
+const Header = ({dark, handleModeChange, theme}) => {
 	console.log(dark);
 	return (
-		<header className="top-header">
+		<header className="top-header" style={{backgroundColor: theme.elements}}>
 			<h1>CountryByCountry</h1>
 			<div className="mode-switch">
 
