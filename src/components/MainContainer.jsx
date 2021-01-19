@@ -19,7 +19,7 @@ const MainContainer = (props) => {
 		try {
 			const response = await fetch(searchURI);
 			const data = await response.json();
-			setCountriesInfo(data);
+			setCountriesInfo(data.slice(0, 40));
 		} catch (error) {
 			console.error(error.message);
 		}
