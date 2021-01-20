@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {countryCodes} from '../assets/countryCodes';
 import {HiOutlineArrowNarrowLeft} from 'react-icons/hi';
 
 const CountryPage = ({countryName, handleReset, theme}) => {
@@ -6,35 +7,32 @@ const CountryPage = ({countryName, handleReset, theme}) => {
 
 	const [searchURI, setSearchURI] = useState(URI + countryName);
 
-	const [countryData, setCountryData] = useState([]);
-
-	const fetchData = async (searchURI) => {
-		try {
-			const response = await fetch(searchURI);
-			if (response.status === 404) {
-				// currently it goes back to the homepage
-				handleReset();
-				return;
-			}
-			const data = await response.json();
-			setCountryData(data[0]);
-		} catch (error) {
-			console.error(error.message);
-		}
-	}
+	const [countryData, setCountryData] = useState([]);	
 
 	useEffect(() => {
-		setSearchURI(URI + countryName)
+		setSearchURI(URI + countryName);
 	}, [countryName])
 
 	useEffect(() => {
+		const fetchData = async (searchURI) => {
+			try {
+				const response = await fetch(searchURI);
+				if (response.status === 404) {
+					// currently it goes back to the homepage
+					handleReset();
+					return;
+				}
+				const data = await response.json();
+				setCountryData(data[0]);
+			} catch (error) {
+				console.error(error.message);
+			}
+		}
 		fetchData(searchURI);
 		return () => {
 			setCountryData([]);
 		}
-	}, [searchURI])
-	
-	// console.log(countryData);
+	}, [searchURI, handleReset])
 
 	const formatPopulation = (data) => {
 		const population = data.population;
@@ -81,7 +79,7 @@ const CountryPage = ({countryName, handleReset, theme}) => {
 				
 				<div className="info-chunk">
 					<h3>Border Countries:</h3>
-					{countryData.borders && countryData.borders.map((border, idx) => <button className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>{border}</button>)}
+					{countryData.borders && countryData.borders.map((border, idx) => <button className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>{countryCodes[border]}</button>)}
 				</div>
 			</section>
 		</article>

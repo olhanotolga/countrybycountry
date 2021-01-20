@@ -225,19 +225,24 @@ main {
 	display: grid;
 	grid-template: repeat(4, auto) / 1fr;
 }
+.info-chunk strong {
+	font-weight: 600;
+}
 .info-chunk:last-of-type {
 	display: grid;
-	grid-template: auto auto / repeat(auto-fit, 5rem);
+	grid-template: auto auto / repeat(auto-fit, 13ch);
 	gap: 0.5rem;
 }
 .info-chunk:last-of-type h3 {
 	grid-column: 1 / -1;
 	font-weight: 600;
 }
-.info-chunk strong {
-	font-weight: 600;
+.border-country {
+	white-space: nowrap;
+	font-size: 90%;
+	overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 /* AUXILLARY CLASSES */
 
 .visually-hidden {
