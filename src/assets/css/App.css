@@ -124,7 +124,7 @@ main {
 
 .filter-field {
 	position: relative;
-	width: clamp(15%, 250px, 70%);
+	width: clamp(30ch, 250px, 70%);
 	margin-top: 2rem;
 	padding: 1rem 2rem;
 	box-shadow: var(--box-shadow);
