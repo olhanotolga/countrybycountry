@@ -24,13 +24,12 @@ const App = () => {
 	// enables rendering country page component upon clicking on the country card
 	const handleCardExpand = (country) => setCountryName(country);
 
-	const setThemeColors = () => {
-		const {background, text} = dark ? darkThemeColors : lightThemeColors;
-		document.body.style.backgroundColor = background;
-		document.getElementById('root').style.color = text;
-	}
-
 	useEffect(() => {
+		const setThemeColors = () => {
+			const {background, text} = dark ? darkThemeColors : lightThemeColors;
+			document.body.style.backgroundColor = background;
+			document.getElementById('root').style.color = text;
+		}
 		setThemeColors();
 	})
 

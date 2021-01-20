@@ -11,7 +11,7 @@ const CountryPage = ({countryName, handleReset, theme}) => {
 
 	useEffect(() => {
 		setSearchURI(URI + countryName);
-	}, [countryName])
+	}, [countryName]);
 
 	useEffect(() => {
 		const fetchData = async (searchURI) => {
