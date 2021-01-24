@@ -26,7 +26,7 @@ const FilterDropdown = ({onFilter, theme}) => {
 				<FilterListItem
 					onFilter={onFilter}
 					handleSelected={handleSelected}
-					value="all"
+					value="All"
 					role="option"
 					id="listbox-1"
 					selected={selected}
@@ -36,7 +36,7 @@ const FilterDropdown = ({onFilter, theme}) => {
 				<FilterListItem
 					onFilter={onFilter}
 					handleSelected={handleSelected}
-					value="region/africa"
+					value="Africa"
 					role="option"
 					id="listbox-2"
 					selected={selected}
@@ -46,17 +46,17 @@ const FilterDropdown = ({onFilter, theme}) => {
 				<FilterListItem
 					onFilter={onFilter}
 					handleSelected={handleSelected}
-					value="region/americas"
+					value="Americas"
 					role="option"
 					id="listbox-3"
 					selected={selected}
-					text="America"
+					text="Americas"
 					theme={theme} />
 				
 				<FilterListItem
 					onFilter={onFilter}
 					handleSelected={handleSelected}
-					value="region/asia"
+					value="Asia"
 					role="option"
 					id="listbox-4"
 					selected={selected}
@@ -66,7 +66,7 @@ const FilterDropdown = ({onFilter, theme}) => {
 				<FilterListItem
 					onFilter={onFilter}
 					handleSelected={handleSelected}
-					value="region/europe"
+					value="Europe"
 					role="option"
 					id="listbox-5"
 					selected={selected}
@@ -76,7 +76,7 @@ const FilterDropdown = ({onFilter, theme}) => {
 				<FilterListItem
 					onFilter={onFilter}
 					handleSelected={handleSelected}
-					value="region/oceania"
+					value="Oceania"
 					role="option"
 					id="listbox-6"
 					selected={selected}
