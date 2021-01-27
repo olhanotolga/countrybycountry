@@ -7,27 +7,26 @@ const CountryCard = (props) => {
 	const context = useContext(MyContext);
 	const {setCountryName, theme, formatPopulation} = context;
 
-	// enables rendering country page component upon clicking on the country card
-	const handleCardExpand = (country) => setCountryName(country);
-
 	return (
-		<section className="card" onClick={() => handleCardExpand(name)} style={{backgroundColor: theme.elements}}>
-			<img className="country-flag" src={flag} alt={`${name} flag`}/>
-			<div className="country-info">
-				<h2>{name}</h2>
-				<p>
-					<strong>Population:</strong>&nbsp;
-					{formatPopulation(population)}
-				</p>
-				<p>
-					<strong>Region:</strong>&nbsp;
-					{region === '' ? 'N/A' : region}
-				</p>
-				<p>
-					<strong>Capital:</strong>&nbsp;
-					{capital === '' ? 'N/A' : capital}
-				</p>
-			</div>
+		<section className="card"
+			onClick={() => setCountryName(name)}
+			style={{backgroundColor: theme.elements}}>
+				<img className="country-flag" src={flag} alt={`${name} flag`}/>
+				<div className="country-info">
+					<h2>{name}</h2>
+					<p>
+						<strong>Population:</strong>&nbsp;
+						{formatPopulation(population)}
+					</p>
+					<p>
+						<strong>Region:</strong>&nbsp;
+						{region === '' ? 'N/A' : region}
+					</p>
+					<p>
+						<strong>Capital:</strong>&nbsp;
+						{capital === '' ? 'N/A' : capital}
+					</p>
+				</div>
 		</section>
 	)
 }

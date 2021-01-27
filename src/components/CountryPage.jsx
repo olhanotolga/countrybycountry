@@ -5,7 +5,7 @@ import {HiOutlineArrowNarrowLeft} from 'react-icons/hi';
 
 const CountryPage = () => {
 	const context = useContext(MyContext);
-	const {countryData, theme, formatPopulation, handleReset} = context;
+	const {countryData, theme, formatPopulation, handleReset, setCountryName} = context;
 
 	const {flag, name, nativeName, population, region, subregion, capital, topLevelDomain, currencies, languages, borders} = countryData;
 
@@ -56,9 +56,10 @@ const CountryPage = () => {
 						<h3>Border Countries:</h3>
 						{borders && borders.length > 0 ?
 						borders.map((border, idx) => {
+							const neighbor = countryCodes[border];
 							return (
-								<button className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>
-									{countryCodes[border]}
+								<button onClick={() => setCountryName(neighbor)} className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>
+									{neighbor}
 								</button>
 							)
 						}) :

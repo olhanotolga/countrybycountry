@@ -27,7 +27,7 @@ const FetchCountryData = () => {
 		return () => {
 			setCountryData([]);
 		}
-	}, []);
+	}, [countryName]);
 
 	return null;
 }
