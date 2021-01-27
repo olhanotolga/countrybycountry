@@ -1,8 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
+import MyContext from '../context/MyContext';
 import { HiOutlineSearch } from 'react-icons/hi';
 
-const Searchbox = ({handleCountrySearch, theme, dark}) => {
-	const [countryInput, setCountryInput] = useState('');
+const Searchbox = () => {
+	const context = useContext(MyContext);
+	const {dark, countryInput, setCountryInput, setCountryName, theme} = context;
+
+	const handleCountrySearch = (e, country) => {
+		if (e.code === 'Enter') {
+			setCountryName(country);
+			setCountryInput('');
+		}
+	};
 
 	return (
 		<div className="search-field" style={{backgroundColor: theme.elements}}>
