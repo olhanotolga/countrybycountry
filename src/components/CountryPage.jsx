@@ -77,10 +77,20 @@ const CountryPage = ({countryName, handleReset, theme}) => {
 					<p><strong>Languages:</strong>&nbsp;{countryData.nativeName}</p>
 				</div>
 				
-				<div className="info-chunk">
-					<h3>Border Countries:</h3>
-					{countryData.borders && countryData.borders.map((border, idx) => <button className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>{countryCodes[border]}</button>)}
-				</div>
+				
+					<div className="info-chunk">
+						<h3>Border Countries:</h3>
+						{countryData.borders && countryData.borders.length > 0 ?
+						countryData.borders.map((border, idx) => {
+							return (
+								<button className="border-country" key={idx} style={{backgroundColor: theme.elements, color: theme.text}}>
+									{countryCodes[border]}
+								</button>
+							)
+						}) :
+						'N/A'}
+					</div>
+				
 			</section>
 		</article>
 	)

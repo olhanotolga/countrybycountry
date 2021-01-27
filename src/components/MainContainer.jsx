@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
 import CountryCard from './CountryCard';
@@ -7,13 +7,12 @@ const MainContainer = (props) => {
 	const URI = 'https://restcountries.eu/rest/v2/all';
 
 	const [loading, setLoading] = useState(true);
-	// create a state for the fetched countries data
+	// current countries data (either ALL or filtered by regions)
 	const [countriesInfo, setCountriesInfo] = useState([]);
-	// the starting index of the next chunk I'm about to render
+	// the starting index of the chunk I'm rendering
 	const [displayStart, setDisplayStart] = useState(0);
 	// countries that are currently displayed
 	const [displayedCountries, setDisplayedCountries] = useState([]);
-
 
 	// refs for the loading upon scroll
 	const pageEnd = useRef();
@@ -22,26 +21,11 @@ const MainContainer = (props) => {
 		rootMargins: '0px',
 		threshold: 1
 	});
+	// all fetched data on countries is here:
 	const allCountries = useRef([]);
-	// const observer = useRef(new IntersectionObserver(handleIntersect, options.current));
 
-	//* 1 — FETCH DATA, store it in a state/variable
-	// this way, it can be filtered through and rendered in chunks
-	//? set variable to data
-	//? set loading to false
-	
-	//* 2 — DISPLAY DATA
-	//? initially: first 20 items of the stored countries
-	//? upon filtering: first 20 items of the filtered countries
-	//? upon loading more: previously rendered + 20 (or less if there are less remaining)
-
-	//* 3 — FILTER DATA
-
-	//* 4 — LOAD MORE DATA
-	//* 4.a — load more filtered data
-	//* 4.b — load more unfiltered data
-
-
+	// FETCH DATA, store it in a ref,
+	// DISPLAY DATA
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -49,8 +33,7 @@ const MainContainer = (props) => {
 				const data = await response.json();
 				allCountries.current = data;
 				setCountriesInfo(data);
-				console.log('1 countriesInfo');
-				
+
 				setLoading(false);
 				setDisplayedCountries(data.slice(0, 20));
 
@@ -61,6 +44,7 @@ const MainContainer = (props) => {
 		fetchData();
 		// return () => {
 		// 	setCountriesInfo([]);
+		// 	setDisplayedCountries([]);
 		// }
 	}, []);
 
@@ -68,66 +52,47 @@ const MainContainer = (props) => {
 	// (set the current list of countries to the filtered one)
 	const filterCountries = (val) => {
 		setDisplayStart(0);
-		// setDisplayedCountries([]);
 		
 		if (val === '' || val === 'All') {
 			setCountriesInfo(allCountries.current);
-			
+			setDisplayedCountries(allCountries.current.slice(0, 20));
 		} else {
 			setCountriesInfo(allCountries.current.filter(country => country.region === val));
-			
+			setDisplayedCountries(allCountries.current.filter(country => country.region === val).slice(0, 20));
 		}
-		console.log('2 countriesInfo');
 	}
 
-	// load more countries by:
-	// 1 — changing the start index of the next chunk — IF the new index is smaller than length
-	// 2 — looking whether the next chunk fits within the standart 20-piece chunk (start index + 20 < countriesInfo.length)
-	// 3 — if not, then next chunk
-
+	// load more countries (from the countriesInfo array) upon scroll to the end of page:
 	useEffect(() => {
 		const handleIntersect = entries => {
 			const loadMore = () => {
+				// change the start index of the next chunk — IF the new index is smaller than length
 				const totalCountries = countriesInfo.length;
 				const startIndex = displayStart + 20;
+				
 				if (startIndex < totalCountries) {
 					setDisplayStart(startIndex);
-		
-					const endIndex = Math.min(startIndex + 20, totalCountries);
-		
-					console.log(countriesInfo[0]);
-					let newChunk = countriesInfo.slice(0, endIndex);
 					
+					//check whether the next chunk fits within the standart 20-piece chunk. if not, it's the rest of the countries array
+					const endIndex = Math.min(startIndex + 20, totalCountries);
+					let newChunk = countriesInfo.slice(0, endIndex);
+
 					setDisplayedCountries(newChunk);
 				}
 			};
 	
 			if (entries[0].isIntersecting) loadMore();
-	
 		};
 
 		if (!loading) {
-			console.log('loading set');
+			const bottom = pageEnd.current;
 			const observer = new IntersectionObserver(handleIntersect, options.current);
 
-			// setLoading(true);
-			observer.observe(pageEnd.current);
+			observer.observe(bottom);
+			
+			return () => observer.unobserve(bottom);
 		}
 	});
-
-
-	// display data every time countriesInfo changes
-	// (first time / initial render or after every filter):
-	useEffect(() => {
-		// console.log(countriesInfo);
-		setDisplayedCountries(countriesInfo.slice(0, 20));
-
-		// return () => {
-		// 	setDisplayedCountries([])
-		// }
-	}, [countriesInfo]);
-	
-	console.log('rendered');
 
 	return (
 		<main>
