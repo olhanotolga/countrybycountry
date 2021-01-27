@@ -1,87 +1,63 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import {HiOutlineChevronDown} from 'react-icons/hi';
 import FilterListItem from './FilterListItem';
+import MyContext from '../context/MyContext';
 
-const FilterDropdown = ({onFilter, theme}) => {
-	const [hidden, setHidden] = useState(true);
-
-	const [selected, setSelected] = useState('all');
+const FilterDropdown = () => {
+	const context = useContext(MyContext);
+	const {theme, hidden, setHidden} = context;
 
 	const toggleDropdown = () => {
 		setHidden(!hidden);
 	}
 
-	const handleSelected = (val) => {
-		setSelected(val);
-		setHidden(true);
-	}
-
 	return (
-		<div className={hidden ? `filter-field` : `filter-field focused`} style={{backgroundColor: theme.elements}}>
-			<p className="filter-heading" onClick={() => toggleDropdown()} id="listboxlabel">
-				Filter by region <HiOutlineChevronDown/>
+		<div
+			className={hidden ? `filter-field` : `filter-field focused`}
+			style={{backgroundColor: theme.elements}}>
+			<p
+				className="filter-heading"
+				onClick={toggleDropdown}
+				id="listboxlabel">
+					Filter by region <HiOutlineChevronDown/>
 			</p>
-			<ul className={hidden ? `visually-hidden filter-dropdown` : `filter-dropdown`} role="listbox" tabIndex="0" id="listbox" aria-labelledby="listboxlabel" style={{backgroundColor: theme.elements}}>
+			<ul
+				className={hidden ? `visually-hidden filter-dropdown` : `filter-dropdown`}
+				role="listbox"
+				tabIndex="0"
+				id="listbox"
+				aria-labelledby="listboxlabel"
+				style={{backgroundColor: theme.elements}}>
 				
 				<FilterListItem
-					onFilter={onFilter}
-					handleSelected={handleSelected}
 					value="All"
-					role="option"
 					id="listbox-1"
-					selected={selected}
-					text="All"
-					theme={theme} />
+					text="All" />
 
 				<FilterListItem
-					onFilter={onFilter}
-					handleSelected={handleSelected}
 					value="Africa"
-					role="option"
 					id="listbox-2"
-					selected={selected}
-					text="Africa"
-					theme={theme} />
+					text="Africa" />
 				
 				<FilterListItem
-					onFilter={onFilter}
-					handleSelected={handleSelected}
 					value="Americas"
-					role="option"
 					id="listbox-3"
-					selected={selected}
-					text="Americas"
-					theme={theme} />
+					text="Americas" />
 				
 				<FilterListItem
-					onFilter={onFilter}
-					handleSelected={handleSelected}
 					value="Asia"
-					role="option"
 					id="listbox-4"
-					selected={selected}
-					text="Asia"
-					theme={theme} />
+					text="Asia" />
 				
 				<FilterListItem
-					onFilter={onFilter}
-					handleSelected={handleSelected}
 					value="Europe"
-					role="option"
 					id="listbox-5"
-					selected={selected}
-					text="Europe"
-					theme={theme} />
+					text="Europe" />
 				
 				<FilterListItem
-					onFilter={onFilter}
-					handleSelected={handleSelected}
 					value="Oceania"
-					role="option"
 					id="listbox-6"
-					selected={selected}
-					text="Oceania"
-					theme={theme} />
+					text="Oceania" />
 
 			</ul>
 		</div>

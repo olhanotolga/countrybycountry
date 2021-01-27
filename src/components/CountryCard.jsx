@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import MyContext from '../context/MyContext';
 
 const CountryCard = (props) => {
-	const {name, population, region, capital, flag, theme} = props;
+	const {name, population, region, capital, flag} = props;
 
-	const populationLength = population.toString(10).length;
-	const populationFormatted = population.toString(10).split('').map((el, idx) => (populationLength - idx) % 3 === 0 && idx !== 0 ? ',' + el : el).join('');
+	const context = useContext(MyContext);
+	const {setCountryName, theme, formatPopulation} = context;
+
+	// enables rendering country page component upon clicking on the country card
+	const handleCardExpand = (country) => setCountryName(country);
 
 	return (
-		<section className="card" onClick={() => props.handleCardExpand(name)} style={{backgroundColor: theme.elements}}>
+		<section className="card" onClick={() => handleCardExpand(name)} style={{backgroundColor: theme.elements}}>
 			<img className="country-flag" src={flag} alt={`${name} flag`}/>
 			<div className="country-info">
 				<h2>{name}</h2>
 				<p>
 					<strong>Population:</strong>&nbsp;
-					{populationFormatted}
+					{formatPopulation(population)}
 				</p>
 				<p>
 					<strong>Region:</strong>&nbsp;

@@ -1,35 +1,19 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
 import CountryCard from './CountryCard';
+import MyContext from '../context/MyContext';
 
-const MainContainer = (props) => {
-	const URI = 'https://restcountries.eu/rest/v2/all';
+const MainContainer = () => {
+	const context = useContext(MyContext);
+	const {listURI, loading, setLoading, countriesInfo, setCountriesInfo, displayStart, setDisplayStart, displayedCountries, setDisplayedCountries, pageEnd, options, allCountries} = context;
 
-	const [loading, setLoading] = useState(true);
-	// current countries data (either ALL or filtered by regions)
-	const [countriesInfo, setCountriesInfo] = useState([]);
-	// the starting index of the chunk I'm rendering
-	const [displayStart, setDisplayStart] = useState(0);
-	// countries that are currently displayed
-	const [displayedCountries, setDisplayedCountries] = useState([]);
-
-	// refs for the loading upon scroll
-	const pageEnd = useRef();
-	const options = useRef({
-		root: null,
-		rootMargins: '0px',
-		threshold: 1
-	});
-	// all fetched data on countries is here:
-	const allCountries = useRef([]);
-
-	// FETCH DATA, store it in a ref,
+	// FETCH DATA, STORE it in a ref,
 	// DISPLAY DATA
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(URI);
+				const response = await fetch(listURI);
 				const data = await response.json();
 				allCountries.current = data;
 				setCountriesInfo(data);
@@ -42,25 +26,7 @@ const MainContainer = (props) => {
 			}
 		};
 		fetchData();
-		// return () => {
-		// 	setCountriesInfo([]);
-		// 	setDisplayedCountries([]);
-		// }
 	}, []);
-
-	// filter by the region
-	// (set the current list of countries to the filtered one)
-	const filterCountries = (val) => {
-		setDisplayStart(0);
-		
-		if (val === '' || val === 'All') {
-			setCountriesInfo(allCountries.current);
-			setDisplayedCountries(allCountries.current.slice(0, 20));
-		} else {
-			setCountriesInfo(allCountries.current.filter(country => country.region === val));
-			setDisplayedCountries(allCountries.current.filter(country => country.region === val).slice(0, 20));
-		}
-	}
 
 	// load more countries (from the countriesInfo array) upon scroll to the end of page:
 	useEffect(() => {
@@ -97,8 +63,8 @@ const MainContainer = (props) => {
 	return (
 		<main>
 			<section className="search-bar">
-				<Searchbox handleCountrySearch={props.handleCountrySearch} theme={props.theme} dark={props.dark}/>
-				<FilterDropdown onFilter={filterCountries} theme={props.theme}/>
+				<Searchbox />
+				<FilterDropdown />
 			</section>
 
 			<section className="cards-container">
@@ -110,14 +76,16 @@ const MainContainer = (props) => {
 							population={country.population}
 							region={country.region}
 							capital={country.capital}
-							flag={country.flag}
-							handleCardExpand={props.handleCardExpand}
-							theme={props.theme}/>
+							flag={country.flag}/>
 					)
 				})}
-				
 			</section>
-			<div className="pageEnd" ref={pageEnd}></div>
+
+			<div
+				className="pageEnd"
+				aria-hidden="true"
+				ref={pageEnd}>
+			</div>
 		</main>
 	)
 }
