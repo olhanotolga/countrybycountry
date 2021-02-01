@@ -1,20 +1,31 @@
 import React, {useContext} from 'react';
 import MyContext from '../context/MyContext';
+import {useHistory} from 'react-router-dom';
 import { HiOutlineSearch } from 'react-icons/hi';
 
 const Searchbox = () => {
 	const context = useContext(MyContext);
 	const {dark, countryInput, setCountryInput, setCountryName, theme} = context;
 
+	const history = useHistory();
+
 	const handleCountrySearch = (e, country) => {
-		if (e.code === 'Enter') {
-			setCountryName(country);
-			setCountryInput('');
-		}
+		e.preventDefault();
+		setCountryName(country);
+		setCountryInput('');
+		history.push({
+			pathname: `/${country}`,
+			state: {
+				country: country
+			}
+		})
 	};
 
 	return (
-		<div className="search-field" style={{backgroundColor: theme.elements}}>
+		<form
+			className="search-field"
+			style={{backgroundColor: theme.elements}}
+			onSubmit={(e) => handleCountrySearch(e, countryInput)}>
 			<label htmlFor="searchBox">
 				<HiOutlineSearch style={{stroke: theme.text}} />
 			</label>
@@ -23,13 +34,13 @@ const Searchbox = () => {
 				type="text"
 				id="searchBox"
 				value={countryInput}
+				name='search'
 				onChange={(e) => setCountryInput(e.target.value)}
-				onKeyUp={(e) => handleCountrySearch(e, countryInput)}
 				placeholder="Search for a country..."
 				style={{backgroundColor: theme.elements, color: theme.text}}
 				autoComplete="off"
 				/>
-		</div>
+		</form>
 	)
 }
 

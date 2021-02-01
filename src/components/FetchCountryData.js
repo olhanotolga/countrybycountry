@@ -1,5 +1,6 @@
 import {useContext, useEffect} from 'react';
 import MyContext from '../context/MyContext';
+import NotFound404 from './NotFound404';
 
 const FetchCountryData = () => {
 	const context = useContext(MyContext);
@@ -13,6 +14,7 @@ const FetchCountryData = () => {
 	}, [setLoading])
 	
 	useEffect(() => {
+		// setLoading(true);
 		const searchURI = baseCountryURI + countryName;
 		const fetchData = async (searchURI) => {
 			try {
@@ -20,6 +22,9 @@ const FetchCountryData = () => {
 				if (response.status === 404) {
 					// currently it goes back to the homepage
 					handleReset();
+					console.log('404!!! OH NO!!!');
+					// setLoading(false);
+					
 					return;
 				}
 				const data = await response.json();

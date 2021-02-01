@@ -5,6 +5,7 @@ import Loader from './Loader';
 import {HiOutlineArrowNarrowLeft} from 'react-icons/hi';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import FetchCountryData from './FetchCountryData';
+import NotFound404 from './NotFound404';
 
 const CountryPage = (props) => {
 	const context = useContext(MyContext);
@@ -27,11 +28,15 @@ const CountryPage = (props) => {
 				<span key={idx}>{item.name}</span>
 			}) : 'N/A';
 
+	
+
 	return (
 		<>
 			<FetchCountryData />
-			
-			{loading ? <Loader/> : 
+
+			{!countryData && <NotFound404/>}
+
+			{loading ? <Loader/> :
 			<article className="country-page">
 				<header className="country-header">
 					<button className="back-btn"
