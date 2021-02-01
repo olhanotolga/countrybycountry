@@ -1,4 +1,5 @@
 import React, {useContext, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
 import CountryCard from './CountryCard';
@@ -65,15 +66,15 @@ const MainContainer = () => {
 				<FilterDropdown />
 			</section>
 
-			{
-				loading ?
-				<section>
-					Loading...
-				</section>
-				:
-				<section className="cards-container">
-					{displayedCountries.map(country => {
-						return (
+			<section className="cards-container">
+				{displayedCountries.map(country => {
+					return (
+						<Link to={{
+							pathname: `/${country.name}`,
+							state: {
+								country: country.name
+							}
+						}} key={country.numericCode}>
 							<CountryCard
 								key={country.numericCode}
 								name={country.name}
@@ -81,10 +82,10 @@ const MainContainer = () => {
 								region={country.region}
 								capital={country.capital}
 								flag={country.flag}/>
-						)
-					})}
-				</section>
-			}
+						</Link>
+					)
+				})}
+			</section>
 
 			<div
 				className="pageEnd"

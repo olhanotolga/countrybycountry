@@ -18,7 +18,6 @@ const FetchCountryData = () => {
 			try {
 				const response = await fetch(searchURI);
 				if (response.status === 404) {
-					console.log(searchURI, countryName);
 					// currently it goes back to the homepage
 					handleReset();
 					return;
