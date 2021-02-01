@@ -23,9 +23,9 @@ const FetchCountryData = () => {
 					// currently it goes back to the homepage
 					handleReset();
 					console.log('404!!! OH NO!!!');
-					// setLoading(false);
+					setLoading(false);
 					
-					return;
+					return <NotFound404/>;
 				}
 				const data = await response.json();
 				setCountryData(data[0]);

@@ -12,12 +12,10 @@ const CountryPage = (props) => {
 	const {countryData, theme, formatPopulation, handleReset, setCountryName, loading} = context;
 
 	let {country} = useParams();
-	
 	const history = useHistory();
 	
 	useEffect(() => {
 		setCountryName(country)
-		
 	}, [country, setCountryName])
 
 	const {flag, name, nativeName, population, region, subregion, capital, topLevelDomain, currencies, languages, borders} = countryData;
@@ -28,15 +26,14 @@ const CountryPage = (props) => {
 				<span key={idx}>{item.name}</span>
 			}) : 'N/A';
 
-	
-
 	return (
 		<>
 			<FetchCountryData />
 
-			{!countryData && <NotFound404/>}
+			{loading ? <Loader/> : 
 
-			{loading ? <Loader/> :
+			countryData.length < 1 ? <NotFound404/> :
+			
 			<article className="country-page">
 				<header className="country-header">
 					<button className="back-btn"

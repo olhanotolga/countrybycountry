@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import MyContext from '../context/MyContext';
+import {Link} from 'react-router-dom';
 
 const CountryCard = (props) => {
 	const {name, population, region, capital, flag} = props;
@@ -8,7 +9,12 @@ const CountryCard = (props) => {
 	const {setCountryName, theme, formatPopulation} = context;
 
 	return (
-		<section className="card"
+		<Link
+			to={{
+				pathname: `/${name}`,
+				state: {country: name}
+			}}
+			className="card"
 			onClick={() => setCountryName(name)}
 			style={{backgroundColor: theme.elements}}>
 				<div className="country-flag">
@@ -30,7 +36,7 @@ const CountryCard = (props) => {
 						{capital === '' ? 'N/A' : capital}
 					</p>
 				</div>
-		</section>
+		</Link>
 	)
 }
 
