@@ -2,11 +2,15 @@ import React, {useContext, useEffect} from 'react';
 import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
 import CountryCard from './CountryCard';
+import Loader from './Loader';
 import MyContext from '../context/MyContext';
+import useHandleIntersect from '../customHooks/useHandleIntersect';
 
 const MainContainer = () => {
 	const context = useContext(MyContext);
 	const {listURI, loading, setLoading, countriesInfo, setCountriesInfo, displayStart, setDisplayStart, displayedCountries, setDisplayedCountries, pageEnd, options, allCountries} = context;
+
+	const {handleIntersect, newCountriesBatch, newStartIndex} = useHandleIntersect(countriesInfo, displayedCountries, displayStart);
 
 	// FETCH DATA, STORE it in a ref,
 	// DISPLAY DATA
@@ -30,26 +34,6 @@ const MainContainer = () => {
 
 	// load more countries (from the countriesInfo array) upon scroll to the end of page:
 	useEffect(() => {
-		const handleIntersect = entries => {
-			const loadMore = () => {
-				// change the start index of the next chunk — IF the new index is smaller than length
-				const totalCountries = countriesInfo.length;
-				const startIndex = displayStart + 20;
-				
-				if (startIndex < totalCountries) {
-					setDisplayStart(startIndex);
-					
-					//check whether the next chunk fits within the standart 20-piece chunk. if not, it's the rest of the countries array
-					const endIndex = Math.min(startIndex + 20, totalCountries);
-					let newChunk = countriesInfo.slice(0, endIndex);
-
-					setDisplayedCountries(newChunk);
-				}
-			};
-	
-			if (entries[0].isIntersecting) loadMore();
-		};
-
 		if (!loading) {
 			const bottom = pageEnd.current;
 			const observer = new IntersectionObserver(handleIntersect, options.current);
@@ -60,6 +44,20 @@ const MainContainer = () => {
 		}
 	});
 
+	// tracks changes after the useHandleIntersect runs and updates the page
+	useEffect(() => {
+		setDisplayedCountries(newCountriesBatch);
+		setDisplayStart(newStartIndex)
+	}, [newCountriesBatch, newStartIndex, setDisplayStart, setDisplayedCountries])
+
+	if (loading) {
+		return (
+			<main>
+				<Loader/>
+			</main>
+		)
+	}
+
 	return (
 		<main>
 			<section className="search-bar">
@@ -67,19 +65,26 @@ const MainContainer = () => {
 				<FilterDropdown />
 			</section>
 
-			<section className="cards-container">
-				{displayedCountries.map(country => {
-					return (
-						<CountryCard
-							key={country.numericCode}
-							name={country.name}
-							population={country.population}
-							region={country.region}
-							capital={country.capital}
-							flag={country.flag}/>
-					)
-				})}
-			</section>
+			{
+				loading ?
+				<section>
+					Loading...
+				</section>
+				:
+				<section className="cards-container">
+					{displayedCountries.map(country => {
+						return (
+							<CountryCard
+								key={country.numericCode}
+								name={country.name}
+								population={country.population}
+								region={country.region}
+								capital={country.capital}
+								flag={country.flag}/>
+						)
+					})}
+				</section>
+			}
 
 			<div
 				className="pageEnd"

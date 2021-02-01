@@ -11,7 +11,10 @@ const CountryCard = (props) => {
 		<section className="card"
 			onClick={() => setCountryName(name)}
 			style={{backgroundColor: theme.elements}}>
-				<img className="country-flag" src={flag} alt={`${name} flag`}/>
+				<div className="country-flag">
+					<img src={flag} alt={`${name} flag`} loading="lazy"/>
+				</div>
+
 				<div className="country-info">
 					<h2>{name}</h2>
 					<p>

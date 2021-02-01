@@ -32,6 +32,12 @@ svg {
 	height: 1.2rem;
 	width: 1.2rem;
 }
+img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	content-visibility: auto;
+}
 
 body {
 	margin: 0;
@@ -179,9 +185,12 @@ main {
 	cursor: pointer;
 }
 .country-flag {
-	width: 100%;
+	overflow: hidden;
+	/* width: 100%; */
 	height: 200px;
-	object-fit: cover;
+	/* object-fit: cover; */
+}
+.country-flag img {
 	border-top-left-radius: var(--border-radius);
 	border-top-right-radius: var(--border-radius);
 }
@@ -218,6 +227,7 @@ main {
 
 .country-image img {
 	width: clamp(50%, 600px, 100%);
+	height: auto;
 }
 
 .country-details {

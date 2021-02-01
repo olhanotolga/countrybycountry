@@ -26,7 +26,7 @@ const CountryPage = () => {
 			</header>
 
 			<section className="country-image">
-				<img src={flag} alt={`${name} flag`}/>
+				<img src={flag} alt={`${name} flag`}loading="lazy"/>
 			</section>
 
 			<section className="country-details">

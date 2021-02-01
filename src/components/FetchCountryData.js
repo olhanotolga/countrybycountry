@@ -3,8 +3,14 @@ import MyContext from '../context/MyContext';
 
 const FetchCountryData = () => {
 	const context = useContext(MyContext);
-	const {handleReset, setCountryData, baseCountryURI, countryName} = context;
+	const {handleReset, setCountryData, baseCountryURI, countryName, setLoading} = context;
 
+	useEffect(() => {
+		setLoading(true);
+		return () => {
+			setLoading(false);
+		}
+	}, [setLoading])
 	
 	useEffect(() => {
 		const searchURI = baseCountryURI + countryName;
@@ -19,6 +25,7 @@ const FetchCountryData = () => {
 				}
 				const data = await response.json();
 				setCountryData(data[0]);
+				setLoading(false);
 			} catch (error) {
 				console.error(error.message);
 			}
