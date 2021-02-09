@@ -2,32 +2,37 @@ import React, {useContext} from 'react';
 import {HiOutlineChevronDown} from 'react-icons/hi';
 import FilterListItem from './FilterListItem';
 import MyContext from '../context/MyContext';
+import useShown from '../customHooks/useShown';
 
 const FilterDropdown = () => {
-	const context = useContext(MyContext);
-	const {theme, hidden, setHidden} = context;
+	const {theme, hidden, setHidden} = useContext(MyContext);
+
+	const { ref, isShown, setIsShown } = useShown(false);
 
 	const toggleDropdown = () => {
-		setHidden(!hidden);
+		console.log('dropdown toggled');
+		setHidden(isShown);
+		setIsShown(!isShown);
 	}
 
 	return (
 		<div
-			className={hidden ? `filter-field` : `filter-field focused`}
+			className={!isShown ? `filter-field` : `filter-field focused`}
+			onClick={toggleDropdown}
 			style={{backgroundColor: theme.elements}}>
 			<p
 				className="filter-heading"
-				onClick={toggleDropdown}
 				id="listboxlabel">
 					Filter by region <HiOutlineChevronDown/>
 			</p>
 			<ul
-				className={hidden ? `visually-hidden filter-dropdown` : `filter-dropdown`}
+				className={!isShown || hidden ? `visually-hidden filter-dropdown` : `filter-dropdown`}
 				role="listbox"
 				tabIndex="0"
 				id="listbox"
 				aria-labelledby="listboxlabel"
-				style={{backgroundColor: theme.elements}}>
+				style={{backgroundColor: theme.elements}}
+				ref={ref}>
 				
 				<FilterListItem
 					value="All"

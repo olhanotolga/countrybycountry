@@ -4,8 +4,7 @@ import MyContext from '../context/MyContext';
 const FilterListItem = (props) => {
 	const {value, id, text} = props;
 
-	const context = useContext(MyContext);
-	const {setHidden, selected, setSelected, allCountries, setCountriesInfo, setDisplayStart, setDisplayedCountries, theme} = context;
+	const {setHidden, selected, setSelected, allCountries, setCountriesInfo, setDisplayStart, setDisplayedCountries, theme} = useContext(MyContext);
 
 	const handleSelected = (val) => {
 		setSelected(val);
@@ -25,8 +24,9 @@ const FilterListItem = (props) => {
 	}
 
 	const handleCountrySelect = (event) => {
-		filterCountries(event.target.attributes.value.nodeValue);
-		handleSelected(event.target.attributes.value.nodeValue);
+		const selection = event.target.attributes.value.nodeValue;
+		filterCountries(selection);
+		handleSelected(selection);
 	}
 	
 	const changeBG = (event, type) => {
