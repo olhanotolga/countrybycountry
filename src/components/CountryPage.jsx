@@ -9,7 +9,7 @@ import NotFound404 from './NotFound404';
 
 const CountryPage = (props) => {
 	const context = useContext(MyContext);
-	const {countryData, theme, formatPopulation, handleReset, setCountryName, loading} = context;
+	const {countryData, theme, formatPopulation, handleReset, setCountryName, loading, countryName} = context;
 
 	let {country} = useParams();
 	const history = useHistory();
@@ -28,7 +28,7 @@ const CountryPage = (props) => {
 
 	return (
 		<>
-			<FetchCountryData />
+			{countryName && <FetchCountryData />}
 
 			{loading ? <Loader/> : 
 

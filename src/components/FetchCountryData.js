@@ -22,7 +22,6 @@ const FetchCountryData = () => {
 				if (response.status === 404) {
 					// currently it goes back to the homepage
 					handleReset();
-					console.log('404!!! OH NO!!!');
 					setLoading(false);
 					
 					return <NotFound404/>;
