@@ -40,7 +40,6 @@ const MyProvider = (props) => {
 
 	//* Search & Filtering
 
-	const [hidden, setHidden] = useState(true);
 	const [selected, setSelected] = useState('all');
 
 	const [countryInput, setCountryInput] = useState('');
@@ -52,39 +51,24 @@ const MyProvider = (props) => {
 		return populationFormatted;
 	}
 
-	
-
-
-
 	return (
 		<MyContext.Provider value={{
-			dark,
-			setDark,
-			countryName,
-			setCountryName,
+			dark, setDark,
+			countryName, setCountryName,
 			theme,
 			listURI,
-			loading,
-			setLoading,
-			countriesInfo,
-			setCountriesInfo,
-			displayStart,
-			setDisplayStart,
-			displayedCountries,
-			setDisplayedCountries,
+			loading, setLoading,
+			countriesInfo, setCountriesInfo,
+			displayStart, setDisplayStart,
+			displayedCountries, setDisplayedCountries,
 			pageEnd,
 			options,
 			allCountries,
-			countryInput,
-			setCountryInput,
-			hidden,
-			setHidden,
-			selected,
-			setSelected,
+			countryInput, setCountryInput,
+			selected, setSelected,
 			formatPopulation,
 			baseCountryURI,
-			countryData,
-			setCountryData,
+			countryData, setCountryData,
 			handleReset
 		}}>
 			{props.children}

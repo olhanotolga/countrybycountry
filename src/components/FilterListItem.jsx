@@ -2,13 +2,13 @@ import React, {useContext} from 'react';
 import MyContext from '../context/MyContext';
 
 const FilterListItem = (props) => {
-	const {value, id, text} = props;
+	const {value, id, text, onItemClick} = props;
 
-	const {setHidden, selected, setSelected, allCountries, setCountriesInfo, setDisplayStart, setDisplayedCountries, theme} = useContext(MyContext);
+	const {selected, setSelected, allCountries, setCountriesInfo, setDisplayStart, setDisplayedCountries, theme} = useContext(MyContext);
 
 	const handleSelected = (val) => {
 		setSelected(val);
-		setHidden(true);
+		onItemClick();
 	}
 
 	const filterCountries = (val) => {
