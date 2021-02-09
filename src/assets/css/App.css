@@ -286,6 +286,18 @@ main {
 	height: 100px;
 }
 
+.loader {
+	min-height: calc(100vh - 100px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: calc(40vh - 100px);
+}
+.loader svg {
+	height: 10rem;
+	width: 10rem;
+}
+
 
 /* MEDIA QUERIES */
 

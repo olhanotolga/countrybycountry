@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from 'react';
 import {countryCodes} from '../assets/countryCodes';
 import MyContext from '../context/MyContext';
-import Loader from './Loader';
+import Loader from 'react-loader-spinner';
 import {HiOutlineArrowNarrowLeft} from 'react-icons/hi';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import FetchCountryData from './FetchCountryData';
@@ -30,9 +30,9 @@ const CountryPage = (props) => {
 		<>
 			{countryName && <FetchCountryData />}
 
-			{loading ? <Loader/> : 
+			{loading ? <Loader className='loader' type="ThreeDots" color={theme.text} height={400} width={400} timeout={0} /> : 
 
-			countryData.length < 1 ? <NotFound404/> :
+			!loading && countryData.length < 1 ? <NotFound404/> :
 			
 			<article className="country-page">
 				<header className="country-header">

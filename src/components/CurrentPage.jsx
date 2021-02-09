@@ -3,12 +3,9 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import MainContainer from './MainContainer';
 import CountryPage from './CountryPage';
 import NotFound404 from './NotFound404';
-// import FetchCountryData from './FetchCountryData';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const CurrentPage = () => {
-	// grabbing variables from the context
-	// const context = useContext(MyContext);
-	// const {countryName} = context;
 	
 	return (
 		<BrowserRouter>
@@ -17,17 +14,6 @@ const CurrentPage = () => {
 				<Route path='/:country' component={CountryPage} />
 				<Route component={NotFound404} />
 			</Switch>
-			{/* {
-				countryName === '' &&
-				<MainContainer/>
-			}	
-			{
-				countryName !== '' &&
-				<>
-					<FetchCountryData />
-					{loading ? <Loader/> : <CountryPage />}
-				</>
-			} */}
 		</BrowserRouter>
 	)
 }

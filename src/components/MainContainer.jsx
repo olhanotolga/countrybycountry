@@ -2,13 +2,12 @@ import React, {useContext, useEffect} from 'react';
 import Searchbox from './Searchbox';
 import FilterDropdown from './FilterDropdown';
 import CountryCard from './CountryCard';
-import Loader from './Loader';
+import Loader from 'react-loader-spinner';
 import MyContext from '../context/MyContext';
 import useHandleIntersect from '../customHooks/useHandleIntersect';
 
 const MainContainer = () => {
-	const context = useContext(MyContext);
-	const {listURI, loading, setLoading, countriesInfo, setCountriesInfo, displayStart, setDisplayStart, displayedCountries, setDisplayedCountries, pageEnd, options, allCountries} = context;
+	const {listURI, loading, setLoading, countriesInfo, setCountriesInfo, displayStart, setDisplayStart, displayedCountries, setDisplayedCountries, pageEnd, options, allCountries, theme} = useContext(MyContext);
 
 	const {handleIntersect, newCountriesBatch, newStartIndex} = useHandleIntersect(countriesInfo, displayedCountries, displayStart);
 
@@ -53,7 +52,7 @@ const MainContainer = () => {
 	if (loading) {
 		return (
 			<main>
-				<Loader/>
+				<Loader className='loader' type="ThreeDots" color={theme.text} height={400} width={400} timeout={0} />
 			</main>
 		)
 	}
