@@ -8,8 +8,7 @@ import FetchCountryData from './FetchCountryData';
 import NotFound404 from './NotFound404';
 
 const CountryPage = (props) => {
-	const context = useContext(MyContext);
-	const {countryData, theme, formatPopulation, handleReset, setCountryName, loading, countryName} = context;
+	const {countryData, theme, formatPopulation, handleReset, setCountryName, loading, countryName} = useContext(MyContext);
 
 	let {country} = useParams();
 	const history = useHistory();
@@ -32,7 +31,7 @@ const CountryPage = (props) => {
 
 			{loading ? <Loader className='loader' type="ThreeDots" color={theme.text} height={400} width={400} timeout={0} /> : 
 
-			!loading && countryData.length < 1 ? <NotFound404/> :
+			!loading && countryData.length < 1 ? <NotFound404 /> :
 			
 			<article className="country-page">
 				<header className="country-header">

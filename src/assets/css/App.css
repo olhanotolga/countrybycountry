@@ -24,7 +24,9 @@ a {
 	text-decoration: none;
 }
 
-button, .border-country {
+button,
+.border-country,
+.nf-home-btn {
 	border: none;
 	border-radius: var(--border-radius);
 	box-shadow: var(--box-shadow);
@@ -192,9 +194,7 @@ main {
 }
 .country-flag {
 	overflow: hidden;
-	/* width: 100%; */
 	height: 200px;
-	/* object-fit: cover; */
 }
 .country-flag img {
 	border-top-left-radius: var(--border-radius);
@@ -259,6 +259,52 @@ main {
 	overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* 404 PAGE */
+
+.nf-page {
+	padding: 2rem 8vw;
+	display: grid;
+	grid-template: repeat(3, auto) / 1fr;
+}
+.nf-header {
+	padding: 2rem 0 4rem;
+}
+.back-btn,
+.nf-home-btn {
+	width: 6rem;
+	display: flex;
+	align-items: center;
+}
+.back-btn {
+	justify-content: space-between;
+}
+.nf-home-btn {
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+.nf-card {
+	display: grid;
+	align-items: center;
+	gap: 1rem;
+}
+
+.nf-card h2 {
+	text-transform: uppercase;
+}
+
+.nf-card svg {
+	width: 10rem;
+	height: auto;
+}
+
+.nf-search {
+	font-weight: 600;
+}
+
+
+
 /* AUXILLARY CLASSES */
 
 .visually-hidden {
@@ -325,6 +371,14 @@ main {
 	}
 	.info-chunk:last-of-type {
 		grid-column: span 2;
+	}
+
+	.nf-card {
+		grid-template-columns: auto 1fr;
+		gap: 3rem;
+	}
+	.nf-card h2 {
+		grid-column: 2 / 3;
 	}
 
 }
